@@ -1,15 +1,5 @@
 [
   {
-    "key": "fuji",
-    "title": "A View of Mount Fuji from Ichikawa.jpg",
-    "author": "Fred Cherrygarden",
-    "license": "CC BY-SA 4.0",
-    "source": "https://commons.wikimedia.org/wiki/File:A_View_of_Mount_Fuji_from_Ichikawa.jpg",
-    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/A_View_of_Mount_Fuji_from_Ichikawa.jpg",
-    "bytes": 13792941,
-    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
-  },
-  {
     "key": "tower",
     "title": "Tokyo Tower, Minato City.jpg",
     "author": "Davekern",
@@ -30,24 +20,6 @@
     "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
   },
   {
-    "key": "ueno",
-    "title": "Main building of the Tokyo National Museum 3.jpg",
-    "author": "Christophe95",
-    "license": "CC BY-SA 4.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Main_building_of_the_Tokyo_National_Museum_3.jpg",
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Main_building_of_the_Tokyo_National_Museum_3.jpg/1920px-Main_building_of_the_Tokyo_National_Museum_3.jpg",
-    "bytes": 575224,
-    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
-  },
-  {
-    "key": "skytree-wide",
-    "title": "Asahi Beer Hall & Tokyo Skytree",
-    "author": "Phlizz",
-    "license": "CC BY-SA 4.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Asahi_Beer_Hall_%26_Tokyo_Skytree.jpg",
-    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
-  },
-  {
     "key": "shibuya-night",
     "title": "Scramble from above, SHIBUYA SKY",
     "author": "Sei F",
@@ -58,6 +30,62 @@
   {
     "key": "neil-giza",
     "title": "Giza, Egypt, 2025",
+    "author": "Neil Pai’s travel archive",
+    "license": "Personal image, used with permission",
+    "source": null,
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "fuji",
+    "title": "Kawaguchiko & Fuji, Japan (48852141032).jpg",
+    "author": "dconvertini",
+    "license": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kawaguchiko_%26_Fuji,_Japan_(48852141032).jpg",
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "skytree-wide",
+    "title": "Tokyo Skytree at Dusk, Asakusa.jpg",
+    "author": "David Kernan",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tokyo_Skytree_at_Dusk,_Asakusa.jpg",
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "ueno",
+    "title": "Cherry blossoms in Ueno park (2524325761).jpg",
+    "author": "KimonBerlin",
+    "license": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Cherry_blossoms_in_Ueno_park_(2524325761).jpg",
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "jimbocho",
+    "title": "Jinbocho Book Center, Kanda, Tokyo - Jun 23, 2019.jpg",
+    "author": "Haruhiko Okumura",
+    "license": "CC BY 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jinbocho_Book_Center,_Kanda,_Tokyo_-_Jun_23,_2019.jpg",
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "neil-taj",
+    "title": "Taj Mahal, Agra, India",
+    "author": "Neil Pai’s travel archive",
+    "license": "Personal image, used with permission",
+    "source": null,
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "neil-chichen",
+    "title": "Chichén Itzá, Yucatán, Mexico",
+    "author": "Neil Pai’s travel archive",
+    "license": "Personal image, used with permission",
+    "source": null,
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "neil-italy",
+    "title": "Italy, 2024",
     "author": "Neil Pai’s travel archive",
     "license": "Personal image, used with permission",
     "source": null,
