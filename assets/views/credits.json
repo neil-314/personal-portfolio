@@ -1,0 +1,66 @@
+[
+  {
+    "key": "fuji",
+    "title": "A View of Mount Fuji from Ichikawa.jpg",
+    "author": "Fred Cherrygarden",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:A_View_of_Mount_Fuji_from_Ichikawa.jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/A_View_of_Mount_Fuji_from_Ichikawa.jpg",
+    "bytes": 13792941,
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "tower",
+    "title": "Tokyo Tower, Minato City.jpg",
+    "author": "Davekern",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tokyo_Tower%2C_Minato_City.jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Tokyo_Tower%2C_Minato_City.jpg",
+    "bytes": 14324929,
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "asakusa",
+    "title": "Five-storied pagoda and Sensō-ji Hōzōmon at night, Asakusa, Tokyo, 2016.jpg",
+    "author": "DimiTalen",
+    "license": "CC0 1.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Five-storied_pagoda_and_Sens%C5%8D-ji_H%C5%8Dz%C5%8Dmon_at_night%2C_Asakusa%2C_Tokyo%2C_2016.jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Five-storied_pagoda_and_Sens%C5%8D-ji_H%C5%8Dz%C5%8Dmon_at_night%2C_Asakusa%2C_Tokyo%2C_2016.jpg/3840px-Five-storied_pagoda_and_Sens%C5%8D-ji_H%C5%8Dz%C5%8Dmon_at_night%2C_Asakusa%2C_Tokyo%2C_2016.jpg",
+    "bytes": 1809268,
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "ueno",
+    "title": "Main building of the Tokyo National Museum 3.jpg",
+    "author": "Christophe95",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Main_building_of_the_Tokyo_National_Museum_3.jpg",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Main_building_of_the_Tokyo_National_Museum_3.jpg/1920px-Main_building_of_the_Tokyo_National_Museum_3.jpg",
+    "bytes": 575224,
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "skytree-wide",
+    "title": "Asahi Beer Hall & Tokyo Skytree",
+    "author": "Phlizz",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Asahi_Beer_Hall_%26_Tokyo_Skytree.jpg",
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "shibuya-night",
+    "title": "Scramble from above, SHIBUYA SKY",
+    "author": "Sei F",
+    "license": "CC BY-SA 2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Scramble_from_above,_SHIBUYA_SKY_(49367161357).jpg",
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  },
+  {
+    "key": "neil-giza",
+    "title": "Giza, Egypt, 2025",
+    "author": "Neil Pai’s travel archive",
+    "license": "Personal image, used with permission",
+    "source": null,
+    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
+  }
+]
