@@ -190,30 +190,38 @@ const portfolioContent = {
     {
       "title": "AI Fluency: Framework & Foundations",
       "issuer": "Anthropic",
-      "date": "May 2026",
+      "date": "7 May 2026",
       "detail": "Foundational learning in effective, responsible AI collaboration.",
-      "context": "AI & practical tools"
+      "context": "AI & practical tools",
+      "url": "https://verify.skilljar.com/c/vfthdvg5h7z3",
+      "label": "Verify certificate"
     },
     {
       "title": "Introduction to Agent Skills",
       "issuer": "Anthropic",
-      "date": "May 2026",
+      "date": "7 May 2026",
       "detail": "Introductory learning on reusable agent skills and workflows.",
-      "context": "AI & practical tools"
+      "context": "AI & practical tools",
+      "url": "https://verify.skilljar.com/c/x2dezrwkk5r6",
+      "label": "Verify certificate"
     },
     {
       "title": "Introduction to Subagents",
       "issuer": "Anthropic",
-      "date": "May 2026",
+      "date": "7 May 2026",
       "detail": "Introductory learning on agent delegation and subagent workflows.",
-      "context": "AI & practical tools"
+      "context": "AI & practical tools",
+      "url": "https://verify.skilljar.com/c/mn3acnz8jgrg",
+      "label": "Verify certificate"
     },
     {
-      "title": "AI Productivity",
+      "title": "How to Boost Your Productivity with AI Tools",
       "issuer": "LinkedIn Learning",
-      "date": "2026",
-      "detail": "Practical learning in AI productivity.",
-      "context": "AI & practical tools"
+      "date": "13 Oct 2026",
+      "detail": "Practical use of AI tools for productivity and everyday workflows.",
+      "context": "AI & practical tools",
+      "url": "assets/certificates/ai-productivity.pdf",
+      "label": "View completion certificate"
     },
     {
       "title": "Amplify Your Business Writing with AI",
@@ -237,9 +245,11 @@ const portfolioContent = {
     {
       "title": "Bloomberg Market Concepts",
       "issuer": "Bloomberg for Education",
-      "date": "2026",
+      "date": "13 Oct 2026",
       "detail": "Financial-markets course completion through Bloomberg for Education.",
-      "context": "Financial markets"
+      "context": "Financial markets",
+      "url": "https://portal.bloombergforeducation.com/certificates/nPdNKD5tzT2VieoFqK2Q6ApZ",
+      "label": "Verify certificate"
     },
     {
       "title": "WHMIS",
