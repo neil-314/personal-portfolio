@@ -68,14 +68,6 @@
     "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
   },
   {
-    "key": "neil-stamford-bridge",
-    "title": "Stamford Bridge, London, England, 2025",
-    "author": "Neil Pai’s travel archive",
-    "license": "Personal image, used with permission",
-    "source": null,
-    "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
-  },
-  {
     "key": "neil-mexico-coast",
     "title": "Cancún coast, Mexico, 2025",
     "author": "Neil Pai’s travel archive",
@@ -84,8 +76,8 @@
     "processing": "16:9 crop, 1920 × 1080, WebP conversion; source metadata omitted."
   },
   {
-    "key": "neil-versailles",
-    "title": "Palace of Versailles, France, 2025",
+    "key": "neil-santorini",
+    "title": "Santorini, Greece, 2026",
     "author": "Neil Pai’s travel archive",
     "license": "Personal image, used with permission",
     "source": null,
