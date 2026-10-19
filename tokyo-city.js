@@ -5,7 +5,7 @@ export function createTokyo(scene,places){
  let seed=3187;const R=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;},PI=Math.PI,TAU=PI*2;
  const batches=new Map(),mats=[],emissives=[],cars=[],trains=[],walkers=[],waterUniform={value:0},root=new T.Group();scene.add(root);
  const unitBox=new T.BoxGeometry(1,1,1),unitCyl=new T.CylinderGeometry(1,1,1,10),leafGeo=new T.SphereGeometry(1,9,7),dummy=new T.Object3D();
- const materialCache=new Map(),emissionCache=new Map(),signCache=new Map(),unitSignPlane=new T.PlaneGeometry(1,1);
+ const materialCache=new Map(),emissionCache=new Map(),signCache=new Map(),brandCache=new Map(),unitSignPlane=new T.PlaneGeometry(1,1);
  const mat=(color,roughness=.8,metalness=.05)=>{const key=color+':'+roughness+':'+metalness;if(materialCache.has(key))return materialCache.get(key);let m=new T.MeshStandardMaterial({color,roughness,metalness});mats.push(m);materialCache.set(key,m);return m;};
  const lit=(color,intensity=1)=>{const key=color+':'+intensity;if(emissionCache.has(key))return emissionCache.get(key);let m=new T.MeshStandardMaterial({color,emissive:color,emissiveIntensity:intensity,roughness:.35});emissives.push({m,intensity});emissionCache.set(key,m);return m;};
  const concrete=mat('#8e9696'),dark=mat('#243239'),stone=mat('#aaa698'),asphalt=mat('#202c34'),sidewalk=mat('#747f80'),metal=mat('#82979e',.35,.7),white=mat('#d9d9c8'),red=mat('#ad412b'),roofMat=mat('#3c5051'),gold=lit('#e3a85b',.9),glass=mat('#4f7885',.24,.48),bark=mat('#685744');
@@ -44,6 +44,13 @@ export function createTokyo(scene,places){
  }
  function tree(g,x,z,size=1){cylinder(g,x,5*size,z,.7*size,10*size,bark);let m=foliage[Math.floor(R()*foliage.length)];for(let i=0;i<7;i++){let a=R()*TAU;instance(leafGeo,g,m,x+Math.sin(a)*3*size,(11+R()*5)*size,z+Math.cos(a)*3*size,(4+R()*2)*size,(4+R()*3)*size,(4+R()*2)*size);}}
  function sign(g,x,y,z,width,height,label,color='#184e66',rotation=0){const key=label+color;let m=signCache.get(key);if(!m){let c=document.createElement('canvas');c.width=512;c.height=256;let a=c.getContext('2d');a.fillStyle=color;a.fillRect(0,0,512,256);a.fillStyle='#f5e9d0';a.fillRect(14,14,484,2);a.fillRect(14,239,484,2);a.textAlign='center';a.font='500 66px sans-serif';a.fillText(label,256,118);a.font='20px sans-serif';a.fillText('TOKYO  /  東京',256,174);for(let i=0;i<12;i++){a.fillStyle=i%2?'#ffffff18':'#00000013';a.fillRect(i*44,205,28,12);}const t=texture(c);m=new T.MeshStandardMaterial({map:t,emissiveMap:t,emissive:'#ffffff',emissiveIntensity:.9,roughness:.45,side:T.DoubleSide});emissives.push({m,intensity:.9});signCache.set(key,m);}instance(unitSignPlane,g,m,x,y,z,width,height,1,new T.Quaternion().setFromAxisAngle(new T.Vector3(0,1,0),rotation));return m;}
+ function brandSign(g,x,y,z,width,height,brand,rotation=0){let m=brandCache.get(brand);if(!m){const c=document.createElement('canvas');c.width=768;c.height=256;const a=c.getContext('2d');a.fillStyle='#f8f7ef';a.fillRect(0,0,768,256);a.textAlign='center';a.textBaseline='middle';
+  if(brand==='7-ELEVEN'){a.fillStyle='#f58220';a.font='900 172px Arial,sans-serif';a.fillText('7',214,126);a.fillStyle='#00843d';a.font='900 100px Arial,sans-serif';a.fillText('ELEVEN',490,132);a.fillStyle='#ee3e33';a.fillRect(0,0,768,14);a.fillStyle='#f58220';a.fillRect(0,14,768,12);a.fillStyle='#00843d';a.fillRect(0,26,768,12);}
+  else if(brand==='LAWSON'){a.fillStyle='#0874a8';a.fillRect(0,0,768,36);a.fillStyle='#0874a8';a.beginPath();a.ellipse(384,139,310,84,0,0,Math.PI*2);a.fill();a.fillStyle='#fff';a.font='900 94px Arial,sans-serif';a.fillText('LAWSON',384,142);a.fillStyle='#f8f7ef';a.fillRect(0,228,768,28);}
+  else if(brand==='FamilyMart'){a.fillStyle='#00a9e0';a.fillRect(0,0,768,17);a.fillStyle='#00a9e0';a.fillRect(0,17,768,9);a.fillStyle='#008b54';a.fillRect(0,229,768,13);a.fillStyle='#0056a6';a.font='700 92px Arial,sans-serif';a.fillText('FamilyMart',384,137);}
+  else {a.fillStyle='#ed1c24';a.fillRect(267,30,234,196);a.fillStyle='#fff';a.font='900 52px Arial,sans-serif';a.fillText('UNIQLO',384,129);}
+  const t=texture(c);m=new T.MeshStandardMaterial({map:t,emissiveMap:t,emissive:'#ffffff',emissiveIntensity:.4,roughness:.6,side:T.DoubleSide});emissives.push({m,intensity:.4});brandCache.set(brand,m);}
+  instance(unitSignPlane,g,m,x,y,z,width,height,1,new T.Quaternion().setFromAxisAngle(new T.Vector3(0,1,0),rotation));return m;}
  function lamp(g,x,z,height=10){cylinder(g,x,height/2,z,.2,height,metal);box(g,x+1,height,z,2.5,.35,.8,gold);}
  function torii(g,x,z,width=20){cylinder(g,x-width*.35,9,z,.8,18,red);cylinder(g,x+width*.35,9,z,.8,18,red);box(g,x,15,z,width,1.5,1.5,red);box(g,x,19,z,width+4,2,2,dark);box(g,x,17.8,z,width+3,1,1.6,red);}
  function tiledRoof(g,x,y,z,w,d,rise=9){roofMat.side=T.DoubleSide;box(g,x,y+2,z,w,1,d,roofMat);let verts=[],uv=[],idx=[],n=12;for(let j=0;j<=n;j++)for(let i=0;i<=n;i++){let u=i/n*2-1,v=j/n*2-1;let e=Math.max(Math.abs(u),Math.abs(v));let yy=rise*(1-e)+Math.pow(e,8)*3.2;verts.push(u*w/2,yy,v*d/2);uv.push(i/n,j/n);}for(let j=0;j<n;j++)for(let i=0;i<n;i++){let k=j*(n+1)+i;idx.push(k,k+n+1,k+1,k+1,k+n+1,k+n+2);}let geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(verts,3));geo.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geo.setIndex(idx);geo.computeVertexNormals();mesh(geo,roofMat,g,x,y,z);for(let side of [-1,1])for(let zz=-d/2;zz<=d/2;zz+=2.2)beam(g,[x,y+rise,z+zz*.35],[x+side*w/2,y+3,z+zz],.28,roofMat);box(g,x,y+rise+.5,z,1,1,d*.75,roofMat);}
@@ -118,13 +125,48 @@ export function createTokyo(scene,places){
  const lanternCanvas=document.createElement('canvas');lanternCanvas.width=128;lanternCanvas.height=256;let lg=lanternCanvas.getContext('2d');lg.fillStyle='#db9b76';lg.fillRect(0,0,128,256);for(let y=8;y<256;y+=13){lg.fillStyle='#784a3d88';lg.fillRect(0,y,128,2);}lg.fillStyle='#4a2926';lg.font='bold 44px serif';lg.textAlign='center';lg.fillText('祭',64,147);const lanternMap=texture(lanternCanvas),lanternMat=new T.MeshStandardMaterial({map:lanternMap,emissiveMap:lanternMap,emissive:'#ffb894',emissiveIntensity:.75,roughness:.8}),lanternShape=new T.SphereGeometry(1,12,10);emissives.push({m:lanternMat,intensity:.75});
  function paperLantern(g,x,y,z){instance(lanternShape,g,lanternMat,x,y,z,.29,.42,.29);for(let side of [-1,1])cylinder(g,x,y+side*.4,z,.16,.055,dark);cylinder(g,x,y+.65,z,.015,.4,metal);}
  // Narrow mixed-use frontages, rather than a ring of identical office blocks.
- function shopStreet(cx,cz,angle,count=11,theme=0){let sg=local(root,cx,0,cz,angle);box(sg,0,.8,0,count*15+25,.3,12,asphalt);for(let x=-count*7;x<count*7;x+=12)box(sg,x,1,0,5,.08,.18,white);for(let side of [-1,1]){box(sg,0,.4,side*8,count*15+25,.6,4,sidewalk);for(let i=0;i<count;i++){let x=(i-(count-1)/2)*15,w=10.2+R()*3.4,h=(theme===4?7+R()*9:theme===1?20+R()*35:11+R()*21),z=side*(17+R()*1.8);let bg=local(sg,x,0,z,side>0?PI:0);building(bg,0,0,w,15,h,(i+theme)%6,true);box(bg,0,2.1,8,w-1,3.1,.3,(i+theme)%3?warmShop:shopGlass);for(let k=-1;k<=1;k++)box(bg,k*w/3,2.1,8.2,.13,3.1,.25,metal);box(bg,0,3.9,9,w+1,.2,2,i%4?red:stripeGreen);sign(bg,0,5.1,8.3,w,1.6,['ラーメン','珈琲','古本','薬','居酒屋','カラオケ','食堂','写真','寿司','書店','喫茶'][i%11],['#913e39','#244d5f','#386c65','#6b4a48'][i%4]);if((i+theme)%3===0&&theme!==4){advert(bg,w*.35,h*.65,8.5,w*.42,Math.min(h*.36,12),(i+theme*5)%24);}
- // Konbini: stripe fascia, glazed entrance, shelves, cash point and vending machines.
- if(i%5===0){box(bg,0,4.8,8.7,w,1.5,.5,white);box(bg,0,5.4,8.9,w,.25,.3,stripeGreen);box(bg,0,4.2,8.9,w,.25,.3,stripeBlue);sign(bg,0,4.8,9.1,w*.82,.9,'コンビニ 24H','#326677');for(let shelf=-1;shelf<=1;shelf++){box(bg,shelf*3,2.4,7.8,2,.2,.5,gold);for(let item=0;item<5;item++)box(bg,shelf*3-1+item*.45,2.8,8,.25,.65,.3,item%2?red:white);}box(bg,w*.65,1.35,7.5,1.4,2.7,.9,i%2?red:stripeBlue);box(bg,w*.65,1.7,8.05,1.1,1.2,.1,white);for(let a=0;a<3;a++)for(let b=0;b<3;b++)box(bg,w*.65-.45+a*.45,1.2+b*.35,8.15,.16,.22,.1,gold);}
- if(i%2===0){for(let l=0;l<3;l++)paperLantern(bg,-w*.35+l*w*.35,3.5,9);}
+ function shopStreet(cx,cz,angle,count=11,theme=0){
+  const storefronts=[
+   {'4,-1':'FamilyMart'},
+   {'6,1':'UNIQLO','3,-1':'7-ELEVEN'},
+   {'5,1':'LAWSON'},
+   {'4,-1':'FamilyMart'},
+   {'7,1':'7-ELEVEN'},
+   {'3,-1':'LAWSON','8,1':'7-ELEVEN'},
+   {'3,1':'FamilyMart','6,-1':'7-ELEVEN'}
+  ];
+  const plannedStores=storefronts[theme]||{};
+  let sg=local(root,cx,0,cz,angle);box(sg,0,.8,0,count*15+25,.3,12,asphalt);
+  for(let x=-count*7;x<count*7;x+=12)box(sg,x,1,0,5,.08,.18,white);
+  for(let side of [-1,1]){
+   box(sg,0,.4,side*8,count*15+25,.6,4,sidewalk);
+   for(let i=0;i<count;i++){
+    let x=(i-(count-1)/2)*15,w=10.2+R()*3.4,h=(theme===4?7+R()*9:theme===1?20+R()*35:11+R()*21),z=side*(17+R()*1.8);
+    let bg=local(sg,x,0,z,side>0?PI:0);building(bg,0,0,w,15,h,(i+theme)%6,true);
+    const brand=plannedStores[`${i},${side}`]||null;
+    const isKonbini=brand?brand!=='UNIQLO':i===Math.floor(count*.58)&&side===(theme%2?1:-1);
+    box(bg,0,2.1,8,w-1,3.1,.3,(i+theme)%3?warmShop:shopGlass);
+    for(let k=-1;k<=1;k++)box(bg,k*w/3,2.1,8.2,.13,3.1,.25,metal);
+    box(bg,0,3.9,9,w+1,.2,2,brand==='UNIQLO'?white:i%4?red:stripeGreen);
+    if(brand==='UNIQLO')brandSign(bg,0,5.1,8.3,Math.min(w*.56,6),2.35,brand);
+    else if(brand)brandSign(bg,0,5.1,8.3,w*.9,2.4,brand);
+    else if(!isKonbini)sign(bg,0,5.1,8.3,w,1.6,['ラーメン','珈琲','古本','薬','居酒屋','カラオケ','食堂','写真','寿司','書店','喫茶'][i%11],['#913e39','#244d5f','#386c65','#6b4a48'][i%4]);
+    if((i+theme)%3===0&&theme!==4){advert(bg,w*.35,h*.65,8.5,w*.42,Math.min(h*.36,12),(i+theme*5)%24);}
+    // Branded stores use their real names and recognizable fascia colours.
+    if(isKonbini){
+     if(!brand){box(bg,0,4.8,8.7,w,1.5,.5,white);box(bg,0,5.4,8.9,w,.25,.3,stripeGreen);box(bg,0,4.2,8.9,w,.25,.3,stripeBlue);sign(bg,0,4.8,9.1,w*.82,.9,'コンビニ 24H','#326677');}
+     for(let shelf=-1;shelf<=1;shelf++){box(bg,shelf*3,2.4,7.8,2,.2,.5,gold);for(let item=0;item<5;item++)box(bg,shelf*3-1+item*.45,2.8,8,.25,.65,.3,item%2?red:white);}
+     const register=brand==='7-ELEVEN'?red:brand==='FamilyMart'?stripeGreen:stripeBlue;
+     box(bg,w*.65,1.35,7.5,1.4,2.7,.9,register);box(bg,w*.65,1.7,8.05,1.1,1.2,.1,white);
+     for(let a=0;a<3;a++)for(let b=0;b<3;b++)box(bg,w*.65-.45+a*.45,1.2+b*.35,8.15,.16,.22,.1,gold);
+    }else if(brand==='UNIQLO'){
+     const clothes=['#b53d36','#38495b','#d9d0bd','#6f8180','#a89b80'];
+     for(let rack=0;rack<4;rack++){let rx=-3.6+rack*2.4;box(bg,rx,2.55,7.72,1.9,.12,.3,metal);for(let hanger=0;hanger<3;hanger++)box(bg,rx-.55+hanger*.55,1.85,7.84,.42,1.1,.22,mat(clothes[(rack+hanger)%clothes.length]));}
+    }
+    if((theme===0||theme===6)&&!brand){for(let rack=0;rack<2;rack++){let rx=-w*.3+rack*w*.6;box(bg,rx,1,9.1,2.2,1.8,.8,bark);for(let shelf=0;shelf<3;shelf++)for(let book=0;book<10;book++)box(bg,rx-1+book*.2,.4+shelf*.55,9.6,.13,.35+R()*.15,.2,[white,red,roofMat,gold][book%4]);}}
+ if(theme===4&&i%2===0){for(let l=0;l<3;l++)paperLantern(bg,-w*.35+l*w*.35,3.5,9);}
 
  if((i+theme)%4===1){box(bg,0,2.1,8.38,w-1,3.1,.12,metal);for(let sl=0;sl<24;sl++)box(bg,0,.65+sl*.125,8.47,w-1,.035,.08,dark);}
- if(theme===0||theme===6){for(let rack=0;rack<2;rack++){let rx=-w*.3+rack*w*.6;box(bg,rx,1,9.1,2.2,1.8,.8,bark);for(let shelf=0;shelf<3;shelf++)for(let book=0;book<10;book++)box(bg,rx-1+book*.2,.4+shelf*.55,9.6,.13,.35+R()*.15,.2,[white,red,roofMat,gold][book%4]);}}
  if(theme===3){for(let side of [-1,1]){box(bg,side*w*.4,.6,9.7,1.2,1.2,1.2,stone);tree(bg,side*w*.4,9.7,.25);}for(let rail=-w*.4;rail<w*.4;rail+=.6)cylinder(bg,rail,1.2,9.8,.025,.7,metal);}
  if(theme===4){tiledRoof(bg,0,h+.6,0,w+1,17,3.5);for(let post of [-w*.45,w*.45])box(bg,post,2.3,8.5,.2,4.6,.3,bark);for(let xx=-w*.4;xx<w*.4;xx+=.55)box(bg,xx,2.2,8.6,.055,2.5,.1,bark);}
  if(theme===1){sign(bg,-w*.43,h*.6,8.6,1.6,Math.min(h*.4,10),['電気','音楽','映画','カラオケ'][i%4],'#303a58');}
