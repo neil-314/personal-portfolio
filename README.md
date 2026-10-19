@@ -31,3 +31,7 @@ The selected destination photographs and personal images are credited in `assets
 ## Vercel
 
 `vercel.json` builds the public site with `node build-public.mjs` and serves `.vercel-public`.
+
+### Shibuya district
+
+Shibuya uses 151 real PLATEAU LOD2 building models and an OpenStreetMap road excerpt. The geometry replaces the earlier four-block placeholder. The five crosswalks, screen artwork, signs, street furniture, crowd and station tower are authored presentation details. The broader Tokyo scene remains a compressed artistic arrangement. Sources, licenses and processing are documented in [vendor/SHIBUYA-DATA.txt](vendor/SHIBUYA-DATA.txt); the transformed data is in `shibuya-data.js`. Reference implementations studied: [jeantimex/tokyo](https://github.com/jeantimex/tokyo) and [programmingkenta/project_002](https://github.com/programmingkenta/project_002).

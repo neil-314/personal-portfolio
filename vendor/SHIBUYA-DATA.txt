@@ -1,0 +1,20 @@
+Shibuya district data attribution
+
+Building geometry source: Project PLATEAU / MLIT and the local authority, Shibuya 2023 LOD2 CityGML.
+https://www.mlit.go.jp/plateau/
+Terms: https://www.mlit.go.jp/plateau/site-policy/
+CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+
+The processed building excerpt was obtained from the public data extraction in
+https://github.com/programmingkenta/project_002/tree/c1011b5169c0b53371a27c851125aa933684177e
+File: shibuya_lod2.html. Application code from that project is not included.
+
+Roads: © OpenStreetMap contributors. Open Database License (ODbL) 1.0.
+https://www.openstreetmap.org/copyright
+https://opendatacommons.org/licenses/odbl/1-0/
+Source snapshot: 2026-02-05T08:58:07Z
+The transformed road excerpt is distributed as shibuyaRoads in shibuya-data.js under ODbL.
+
+Rail alignments: the same public extraction, sourced there from MLIT Shibuya related railway open data.
+
+Processing for Neil Pai's portfolio: building bases flattened per building, coordinates rounded to centimetres, road segments clipped to 242 m, arrays compacted. Facades, signage, lighting, crossing paint, people and a contemporary station tower are added interpretations. No photographic building textures are redistributed. This is not an official map or a current survey.
