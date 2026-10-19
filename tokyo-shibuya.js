@@ -30,6 +30,19 @@ export function createShibuya(parent,kit){
   }
  }
  geometryBatches.forEach((batch,index)=>{if(!batch.positions.length)return;const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(batch.positions,3));geo.setAttribute('uv',new T.Float32BufferAttribute(batch.uvs,2));geo.computeVertexNormals();const m=mesh(geo,index===6?roofSurface:index===7?qfrontGlass:wallMaterials[index],g);m.castShadow=m.receiveShadow=true;});
+ // Roof equipment stays inside a surveyed flat roof, including its full footprint.
+ function insideRoof(x,z,points){let inside=false;for(let i=0,j=points.length-1;i<points.length;j=i++){const a=points[i],b=points[j];if((a[2]>z)!==(b[2]>z)&&x<(b[0]-a[0])*(z-a[2])/(b[2]-a[2])+a[0])inside=!inside;}return inside;}
+ let detailedRoofs=0;
+ shibuyaBuildings.forEach((b,index)=>{
+  const roofs=b.polygons.filter(p=>p.length>=3&&Math.max(...p.map(v=>v[1]))-Math.min(...p.map(v=>v[1]))<.15&&p[0][1]>9).sort((a,b)=>b[0][1]-a[0][1]);
+  for(const roof of roofs){const x=roof.reduce((s,p)=>s+p[0],0)/roof.length,z=roof.reduce((s,p)=>s+p[2],0)/roof.length;
+   if(![[-3,-2],[-3,2],[3,-2],[3,2],[0,0]].every(([dx,dz])=>insideRoof(x+dx,z+dz,roof)))continue;
+   const y=roof[0][1]+.32,unit=local(g,x,y,z);box(unit,0,.22,0,5,.44,3.3,roofSurface);
+   for(const dx of[-1.25,1.25]){box(unit,dx,1.1,0,1.9,1.35,2.2,metal);cylinder(unit,dx,1.82,0,.68,.12,dark);for(let slat=-3;slat<=3;slat++)box(unit,dx+slat*.23,1.05,1.12,.07,.95,.04,dark);}
+   if(index%3===0){beam(unit,[-2,.5,-1.5],[-2,5,-1.5],.035,metal);for(let yy=3;yy<=4.5;yy+=.7)beam(unit,[-3,yy,-1.5],[-1,yy,-1.5],.025,metal);}
+   detailedRoofs++;break;
+  }
+ });
  const ground=mesh(new T.CircleGeometry(245,96),mat('#71716a'),g,-2.5,.04,-9.11);ground.rotation.x=-PI/2;ground.receiveShadow=true;
  const walkingPaving=mat('#8a8274'),railBed=mat('#4a4d49');
  function segment(x1,z1,x2,z2,width,y,height,material,offset=0){const dx=x2-x1,dz=z2-z1,len=Math.hypot(dx,dz);if(len<.1)return;const sg=local(g,(x1+x2)/2,y,(z1+z2)/2,Math.atan2(-dz,dx));box(sg,0,0,offset,len,height,width,material);return sg;}
@@ -85,6 +98,12 @@ export function createShibuya(parent,kit){
  // A dense layer of signs occupies the existing frontages, not detached cubes in the road.
  function frontage(b){let best=null,score=Infinity;for(const poly of b.polygons){const yMin=Math.min(...poly.map(p=>p[1])),yMax=Math.max(...poly.map(p=>p[1]));if(yMax-yMin<7)continue;let edge=null,length=0;for(let i=0;i<poly.length;i++)for(let j=i+1;j<poly.length;j++){if(Math.abs(poly[i][1]-poly[j][1])>1)continue;const dx=poly[j][0]-poly[i][0],dz=poly[j][2]-poly[i][2],l=Math.hypot(dx,dz);if(l>length){edge=[dx,dz];length=l;}}if(!edge||length<5)continue;const x=poly.reduce((s,p)=>s+p[0],0)/poly.length,z=poly.reduce((s,p)=>s+p[2],0)/poly.length;let nx=edge[1]/length,nz=-edge[0]/length;if(nx*(-2.5-x)+nz*(-9.11-z)<0){nx=-nx;nz=-nz;}const d=Math.hypot(x+2.5,z+9.11);if(d<score){score=d;best={x,z,nx,nz,width:length,yMin,yMax,angle:Math.atan2(nx,nz)};}}return best;}
  const signBuildings=shibuyaBuildings.map((b,i)=>({b,i,d:Math.hypot(...b.center)})).filter(v=>v.d>45&&v.d<165&&![30,36,96,97].includes(v.i));
+ // Recessed glazing, door frames and warm interiors follow the actual wall planes.
+ signBuildings.slice(0,28).forEach(({b},j)=>{const f=frontage(b);if(!f||f.yMin>1)return;const shop=local(g,f.x+f.nx*.16,.32,f.z+f.nz*.16,f.angle),width=Math.min(f.width*.8,13),panes=Math.max(2,Math.floor(width/2));
+  box(shop,0,2,0,width,3.6,.12,dark);for(let p=0;p<panes;p++){const x=-width/2+(p+.5)*width/panes;box(shop,x,1.95,.09,width/panes-.15,3.15,.08,glass);box(shop,x,3.52,.15,width/panes-.2,.09,.1,lit(j%3===0?'#e5b881':'#c6d5cb',.5));}
+  for(let p=0;p<=panes;p++)box(shop,-width/2+p*width/panes,2,.19,.09,3.6,.1,metal);
+  box(shop,0,.24,.18,width,.2,.2,roofSurface);
+ });
  signBuildings.slice(0,38).forEach(({b},j)=>{const f=frontage(b);if(!f)return;label(f.x+f.nx*.2,Math.min(f.yMax-2,f.yMin+5+j%4*4),f.z+f.nz*.2,Math.min(f.width*.85,15),Math.min(4.5,(f.yMax-f.yMin)*.22),['カラオケ','珈琲','薬','居酒屋','書店','美容室','ゲーム','食堂'][j%8],['#8e303a','#176475','#24614e','#ebe3c4'][j%4],j%4===3?'#262d33':'#f3ebd5',f.angle);});
  for(const[index,variant]of[[78,1],[75,2],[93,0],[137,1],[55,0]]){const f=frontage(shibuyaBuildings[index]);if(!f)continue;screen(f.x+f.nx*.4,f.yMin+(f.yMax-f.yMin)*.6,f.z+f.nz*.4,Math.min(23,f.width*.92),Math.min(17,(f.yMax-f.yMin)*.62),f.angle,variant);}
  // Shibuya station and the contemporary Scramble Square tower close the south/east horizon.
@@ -100,7 +119,7 @@ export function createShibuya(parent,kit){
  cylinder(g,8,.58,37,1.4,1.15,mat('#787c71'));const bronze=mat('#465448',.45,.35);box(g,8,1.7,37,1.5,1.1,.65,bronze);const head=mesh(new T.SphereGeometry(.42,10,8),bronze,g,8.63,2.45,37);head.scale.y=1.15;for(const side of[-1,1])box(g,7.5+side*.45,1.1,37,.15,.9,.2,bronze);
  for(const[x,z]of[[-40,5],[-36,20],[23,18],[14,43]])tree(g,x,z,.35);
  const signalLamps=[];for(const[x,z,a]of[[-38,-25,.1],[-18,-36,0],[20,-20,1.5],[-32,18,2.8],[18,22,3]]){const sg=local(g,x,0,z,a);cylinder(sg,0,2.5,0,.075,5,metal);box(sg,1.3,4.8,0,2.8,.12,.13,metal);box(sg,2.2,4.5,0,.8,.65,.35,dark);const m=new T.MeshBasicMaterial({color:'#6ddfa6'});mesh(new T.SphereGeometry(.12,8,6),m,sg,2.2,4.5,.2);signalLamps.push(m);}
- function vehicle(x,z,angle,color,bus=false){const v=local(g,x,0,z,angle),w=bus?2.4:1.75,l=bus?8:4.2;box(v,0,.8,0,w,1.1,l,mat(color,.3,.25));box(v,0,1.6,-.1,w*.88,.65,l*.58,glass);for(const side of[-1,1])for(const end of[-1,1])cylinder(v,side*w*.5,.48,end*l*.32,.27,.35,dark);box(v,0,.9,l/2+.03,w*.8,.2,.08,lit('#e9ddb4',.9));if(!bus)box(v,0,2.02,0,.55,.2,.36,lit('#d9ce9f',.4));}
+ function vehicle(x,z,angle,color,bus=false){const v=local(g,x,0,z,angle),w=bus?2.4:1.75,l=bus?8:4.2;box(v,0,.8,0,w,1.1,l,mat(color,.3,.25));box(v,0,1.6,-.1,w*.88,.65,l*.58,glass);for(const side of[-1,1])for(const end of[-1,1]){const wheel=local(v,side*w*.5,.48,end*l*.32);wheel.rotation.z=PI/2;cylinder(wheel,0,0,0,.34,.2,dark);cylinder(wheel,0,side*-.11,0,.16,.04,metal);}box(v,0,.9,l/2+.03,w*.8,.2,.08,lit('#e9ddb4',.9));if(!bus)box(v,0,2.02,0,.55,.2,.36,lit('#d9ce9f',.4));}
  vehicle(4.5,-55,0,'#47745c');vehicle(6,-65,0,'#e8e4d5');vehicle(-64,-16,PI/2,'#373f46');vehicle(42,-7,-PI/2,'#d9d3be',true);
- return {paths:rawPaths.map(([x1,z1,x2,z2,w])=>[x1+2.5,z1+9.11,x2+2.5,z2+9.11,w]),buildings:shibuyaBuildings.length,triangles,animate(time){const phase=Math.floor(time/12)%3;screens.forEach(({m,variant})=>{const t=screenTextures[(phase+variant)%3];if(m.map!==t){m.map=m.emissiveMap=t;}});signalLamps.forEach(m=>m.color.set('#6ddfa6'));}};
+ return {paths:rawPaths.map(([x1,z1,x2,z2,w])=>[x1+2.5,z1+9.11,x2+2.5,z2+9.11,w]),buildings:shibuyaBuildings.length,triangles,detailedRoofs,animate(time){const phase=Math.floor(time/12)%3;screens.forEach(({m,variant})=>{const t=screenTextures[(phase+variant)%3];if(m.map!==t){m.map=m.emissiveMap=t;}});signalLamps.forEach(m=>m.color.set('#6ddfa6'));}};
 }

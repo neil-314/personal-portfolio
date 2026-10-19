@@ -19,7 +19,7 @@ Open http://localhost:8000. The project uses browser JavaScript modules and Thre
 
 - `index.html` defines the page and navigation.
 - `stations.js` and `content.js` provide the destinations and portfolio records.
-- `scene360.js`, `tokyo-city.js`, and `tokyo-ads.js` build the city experience.
+- `scene360.js`, `tokyo-city.js`, `tokyo-shibuya.js`, and `tokyo-ads.js` build the city experience.
 - `fuji-outlook.js` shows current modeled conditions near Mount Fuji.
 - `base.css`, `stations.css`, and `scene360.css` provide the responsive design.
 - `assets/` contains project previews, personal travel photographs, location credits, and certificate PDFs.
@@ -34,4 +34,4 @@ The selected destination photographs and personal images are credited in `assets
 
 ### Shibuya district
 
-Shibuya uses 151 real PLATEAU LOD2 building models and an OpenStreetMap road excerpt. The geometry replaces the earlier four-block placeholder. The five crosswalks, screen artwork, signs, street furniture, crowd and station tower are authored presentation details. The broader Tokyo scene remains a compressed artistic arrangement. Sources, licenses and processing are documented in [vendor/SHIBUYA-DATA.txt](vendor/SHIBUYA-DATA.txt); the transformed data is in `shibuya-data.js`. Reference implementations studied: [jeantimex/tokyo](https://github.com/jeantimex/tokyo) and [programmingkenta/project_002](https://github.com/programmingkenta/project_002).
+Shibuya uses 151 real PLATEAU LOD2 building models and an OpenStreetMap road excerpt. The geometry replaces the earlier four-block placeholder. The five crosswalks, screen artwork, signs, street furniture, shop windows, roof equipment, crowd and station tower are authored presentation details. Rooftop equipment is fitted inside the original flat roof polygons. The broader Tokyo scene remains a compressed artistic arrangement. Sources, licenses and processing are documented in [vendor/SHIBUYA-DATA.txt](vendor/SHIBUYA-DATA.txt); the transformed data is in `shibuya-data.js`. Reference implementations studied: [jeantimex/tokyo](https://github.com/jeantimex/tokyo) and [programmingkenta/project_002](https://github.com/programmingkenta/project_002).

@@ -1,6 +1,6 @@
 import * as T from './vendor/three.module.js';
 import {createAdAtlas} from './tokyo-ads.js';
-import {createShibuya} from './tokyo-shibuya.js';
+import {createShibuya} from './tokyo-shibuya.js?v=detail18';
 // A composed Tokyo cityscape. Instanced architectural details keep it navigable on phones.
 export function createTokyo(scene,places){
  let seed=3187;const R=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;},PI=Math.PI,TAU=PI*2;
