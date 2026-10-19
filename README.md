@@ -1,37 +1,33 @@
-# Neil Pai: Tokyo, all around
+# Neil Pai | 東京をめぐる
 
-A personal portfolio explored through an illustrated 360-degree Tokyo cityscape. Seven destinations connect projects, paid experience, research, learning, photography, education, and school activities.
+An interactive personal portfolio inside an illustrated 360° view of Tokyo. Seven stops connect the city to my education, paid work, projects, learning, research, school years, and photography.
 
-Live private draft: https://neil-portfolio-first-draft.tealmesa7.chatgpt.site/
+**Live portfolio:** [neil-pai.vercel.app](https://neil-pai.vercel.app/)
+
+The Tokyo scene follows local sunrise and sunset. Current weather updates through Open-Meteo, with model cloud cover and visibility near Kawaguchiko shown separately from an actual camera sighting. The scene is an illustrated interpretation for exploration, not a geographic reconstruction.
 
 ## Run locally
 
-Serve this directory over HTTP, for example:
-
 ```sh
-python3 -m http.server 8000
+node build-public.mjs
+python3 -m http.server 8000 --directory .vercel-public
 ```
 
-Open http://localhost:8000. ES modules require HTTP rather than opening index.html directly.
+Open http://localhost:8000. The project uses browser JavaScript modules and Three.js 0.180.0, included in `vendor/` with its license. No package installation is required.
 
-No build step or package installation is required. Three.js 0.180.0 is vendored in `vendor/`, with its MIT license. The illustrated layout is composed for exploration and is not a geographic reconstruction.
+## Site source
 
-## Source
+- `index.html` defines the page and navigation.
+- `stations.js` and `content.js` provide the destinations and portfolio records.
+- `scene360.js`, `tokyo-city.js`, and `tokyo-ads.js` build the city experience.
+- `fuji-outlook.js` shows current modeled conditions near Mount Fuji.
+- `base.css`, `stations.css`, and `scene360.css` provide the responsive design.
+- `assets/` contains project previews, personal travel photographs, location credits, and certificate PDFs.
 
-- `index.html`: page structure and navigation.
-- `stations.js`: destination content and dialogs.
-- `content.js`: verified portfolio records. Only public projects are featured.
-- `scene360.js`: camera controls, Tokyo time, weather, and rendering.
-- `tokyo-city.js`: detailed architecture, landmarks, street scenes, parks, river, bridges, and restrained vehicle animation.
-- `base.css`, `stations.css`, `scene360.css`: responsive visual design.
-- `assets/`: project previews, credited location photographs, a personal travel image, and supplied certificate PDFs.
+About includes Waterloo and the awarded IB Diploma. Paid experience focuses on swim instruction and lifeguarding, plus mathematics tutoring. School years holds secondary-school details and concise club records. CCX dates are Executive, 2023 to 2025, and Member, 2022 to 2023. Expired SFA/CPR C is excluded. Only public projects are featured; research papers will be linked when they are ready to share.
 
-Tokyo lighting follows local sunrise and sunset. Open-Meteo model weather is requested at page load, on return to the tab, and every 15 minutes while visible. Weather failure is labeled, and local-time lighting continues. Reduced-motion preferences disable ambient vehicle and precipitation animation.
+The selected destination photographs and personal images are credited in `assets/views/credits.json`. Original personal photos are not included in the repository. The site uses compressed derivatives. Research content remains unlinked until the papers are supplied.
 
-## Content structure
+## Vercel
 
-About includes Waterloo and the awarded IB Diploma. Paid experience focuses on swimming instruction/lifeguarding and mathematics tutoring. School years contains secondary-school diplomas, the French certificate, the 97% average, Ontario Scholar, and concise club records. CCX dates remain Executive 2023-2025 and Member 2022-2023. Expired SFA/CPR C is excluded.
-
-Photo credits, source links, licenses, and crop information are available in the website's About this view panel and `assets/views/credits.json`. Location photographs use actual 16:9 crops. Personal images remain reserved to their rights holders; their presence does not license reuse. Research report links remain unset until papers are supplied.
-
-The older planning markdown files in this repository are historical preparation notes. The files alongside this README are the implemented website.
+`vercel.json` builds the public site with `node build-public.mjs` and serves `.vercel-public`.
