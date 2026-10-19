@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.js';
-import {createTokyo} from './tokyo-city.js?v=skytree12';
+import {createTokyo} from './tokyo-city.js?v=skytree13';
 const container=document.querySelector('#city-view'),surface=document.querySelector('#city-canvas');
 const TAU=Math.PI*2,rad=Math.PI/180,clamp=T.MathUtils.clamp;
 const places=[
